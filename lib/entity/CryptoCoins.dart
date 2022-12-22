@@ -9,7 +9,6 @@ class CryptoCoins{
   String priceUsd;
   String changePercent24Hr;
 
-
   CryptoCoins(this.id, this.rank, this.symbol, this.name, this.supply,
       this.volumeUsd24Hr, this.priceUsd, this.changePercent24Hr);
 

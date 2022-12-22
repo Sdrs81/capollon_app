@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../entity/CryptoCoins.dart';
+
 class FavoritesPage extends StatefulWidget {
-  const FavoritesPage({Key? key}) : super(key: key);
+
+  //var favoriteCoinsList = <CryptoCoins>[];
+  //FavoritesPage({required this.favoriteCoinsList});
 
   @override
   State<FavoritesPage> createState() => _FavoritesPageState();
