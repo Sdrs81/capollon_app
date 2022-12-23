@@ -1,4 +1,5 @@
 import 'package:capollon_app/stateManagement/ProviderCryptoCoinList.dart';
+import 'package:capollon_app/stateManagement/ProviderForFavoriteCoins.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,6 +16,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
+  Future<void> transportValuesFromSharedPreferencesToProviderForFavoriteCoins() async{
+    var sharedPFavoriteCoinList = await SharedPreferences.getInstance();
+    Provider.of<ProviderForFavoriteCoins>(context, listen: true).setListOfFavoriteCoins(sharedPFavoriteCoinList.getStringList("favoriteCoins")!);
+  }
 
   Future<List<CryptoCoins>> showAllCoins() async{
 
@@ -23,10 +28,16 @@ class _MainPageState extends State<MainPage> {
     var c1 = CryptoCoins("1", "1", "BTC", "Bitcoin", "100000","123456" , "20000", "5");
     var c2 = CryptoCoins("2", "2", "ETH", "Etherium", "50055", "123456","1000", "4");
     var c3 = CryptoCoins("3", "3", "XRP", "XRP coin", "15205", "123456","1500", "3");
+    var c4 = CryptoCoins("1", "1", "BTC", "Bitcoin", "100000","123456" , "20000", "5");
+    var c5 = CryptoCoins("2", "2", "ETH", "Etherium", "50055", "123456","1000", "4");
+    var c6 = CryptoCoins("3", "3", "XRP", "XRP coin", "15205", "123456","1500", "3");
 
     coinList.add(c1);
     coinList.add(c2);
     coinList.add(c3);
+    coinList.add(c4);
+    coinList.add(c5);
+    coinList.add(c6);
 
     return coinList;
   }
@@ -35,6 +46,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     showAllCoins();
+    transportValuesFromSharedPreferencesToProviderForFavoriteCoins();
   }
 
   @override
@@ -47,9 +59,10 @@ class _MainPageState extends State<MainPage> {
       body: FutureBuilder<List<CryptoCoins>>(
         future: showAllCoins(),
         builder: (context, snapshot){
-          if(snapshot.hasData){
+          if(snapshot.hasData){                                           // provider sorunu
             var coinList = snapshot.data;
-            Provider.of<ProviderCryptoCoinList>(context, listen: true).setListOfAllCoins(coinList!);   // Set provider list with updated values
+            var favoriteCoinList = Provider.of<ProviderForFavoriteCoins>(context);
+            //Provider.of<ProviderCryptoCoinList>(context, listen: false).setListOfAllCoins(coinList!);   // Set provider crypto coin list with updated values
             return ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
@@ -85,12 +98,19 @@ class _MainPageState extends State<MainPage> {
                                   Text(" (${coin.symbol})", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
                                 ],
                               ),
+                              favoriteCoinList.isContain(coin.id) ?
+                              IconButton(
+                                icon: Icon(Icons.favorite, color: Colors.white,),
+                                onPressed: (){
+                                  favoriteCoinList.remove(coin.id);
+                                },
+                              ):
                               IconButton(
                                 icon: Icon(Icons.favorite_border, color: Colors.white,),
                                 onPressed: (){
-
+                                  favoriteCoinList.add(coin.id);
                                 },
-                              ),
+                              )
                             ],
                           ),
                           Container(

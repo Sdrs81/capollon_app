@@ -6,11 +6,11 @@ class ProviderCryptoCoinList extends ChangeNotifier{
 
   List<CryptoCoins> cryptoCoinList = [];
 
-  List<CryptoCoins> getListOfAllCoins(){
+  Future <List<CryptoCoins>> getListOfAllCoins() async{
     return cryptoCoinList;
   }
 
-  void setListOfAllCoins(List<CryptoCoins> list){
+  Future <void> setListOfAllCoins(List<CryptoCoins> list) async{
     cryptoCoinList = list;
     notifyListeners();
   }
