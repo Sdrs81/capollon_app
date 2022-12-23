@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../entity/CryptoCoins.dart';
 
 class FavoritesPage extends StatefulWidget {
 

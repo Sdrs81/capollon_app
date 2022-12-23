@@ -1,7 +1,10 @@
+import 'package:capollon_app/stateManagement/ProviderCryptoCoinList.dart';
+import 'package:capollon_app/stateManagement/ProviderForFavoriteCoins.dart';
 import 'package:capollon_app/views/AboutPage.dart';
 import 'package:capollon_app/views/FavoritesPage.dart';
 import 'package:capollon_app/views/MainPage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,13 +16,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProviderCryptoCoinList()),
+        ChangeNotifierProvider(create: (context) => ProviderForFavoriteCoins()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: mainDart(),
       ),
-      home: mainDart(),
     );
   }
 }

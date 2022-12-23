@@ -1,6 +1,10 @@
+import 'package:capollon_app/stateManagement/ProviderCryptoCoinList.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../entity/CryptoCoins.dart';
+
+import '../model/CryptoCoins.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -11,7 +15,9 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
+
   Future<List<CryptoCoins>> showAllCoins() async{
+
     var coinList = <CryptoCoins>[];
 
     var c1 = CryptoCoins("1", "1", "BTC", "Bitcoin", "100000","123456" , "20000", "5");
@@ -26,7 +32,14 @@ class _MainPageState extends State<MainPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    showAllCoins();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Capollon App"),
@@ -36,6 +49,7 @@ class _MainPageState extends State<MainPage> {
         builder: (context, snapshot){
           if(snapshot.hasData){
             var coinList = snapshot.data;
+            Provider.of<ProviderCryptoCoinList>(context, listen: true).setListOfAllCoins(coinList!);   // Set provider list with updated values
             return ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
