@@ -17,8 +17,13 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   Future<void> transportValuesFromSharedPreferencesToProviderForFavoriteCoins() async{
-    var sharedPFavoriteCoinList = await SharedPreferences.getInstance();
-    Provider.of<ProviderForFavoriteCoins>(context, listen: true).setListOfFavoriteCoins(sharedPFavoriteCoinList.getStringList("favoriteCoins")!);
+    var sharedP = await SharedPreferences.getInstance();
+    var coinFavoriteCoinListFromSharedPReferences = sharedP.getStringList("favoriteCoins") ?? <String>[];
+    var favoriteCoinList = Provider.of<ProviderForFavoriteCoins>(context, listen: false);
+
+    for(var coin in coinFavoriteCoinListFromSharedPReferences){
+      favoriteCoinList.add(coin);
+    }
   }
 
   Future<List<CryptoCoins>> showAllCoins() async{
