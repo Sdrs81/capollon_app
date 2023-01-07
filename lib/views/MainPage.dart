@@ -21,8 +21,8 @@ class _MainPageState extends State<MainPage> {
     var coinFavoriteCoinListFromSharedPReferences = sharedP.getStringList("favoriteCoins") ?? <String>[];
     var favoriteCoinList = Provider.of<ProviderForFavoriteCoins>(context, listen: false);
 
-    for(var coin in coinFavoriteCoinListFromSharedPReferences){
-      favoriteCoinList.add(coin);
+    for(var coinId in coinFavoriteCoinListFromSharedPReferences){
+      favoriteCoinList.add(coinId);
     }
   }
 
@@ -33,9 +33,9 @@ class _MainPageState extends State<MainPage> {
     var c1 = CryptoCoins("1", "1", "BTC", "Bitcoin", "100000","123456" , "20000", "5");
     var c2 = CryptoCoins("2", "2", "ETH", "Etherium", "50055", "123456","1000", "4");
     var c3 = CryptoCoins("3", "3", "XRP", "XRP coin", "15205", "123456","1500", "3");
-    var c4 = CryptoCoins("1", "1", "BTC", "Bitcoin", "100000","123456" , "20000", "5");
-    var c5 = CryptoCoins("2", "2", "ETH", "Etherium", "50055", "123456","1000", "4");
-    var c6 = CryptoCoins("3", "3", "XRP", "XRP coin", "15205", "123456","1500", "3");
+    var c4 = CryptoCoins("4", "4", "SOLO", "Solo Coin", "100000","123456" , "20000", "5");
+    var c5 = CryptoCoins("5", "5", "PEAK", "Peak Coin", "50055", "123456","1000", "4");
+    var c6 = CryptoCoins("6", "6", "SRP", "SRP Coin", "15205", "123456","1500", "3");
 
     coinList.add(c1);
     coinList.add(c2);
@@ -48,14 +48,12 @@ class _MainPageState extends State<MainPage> {
       Provider.of<ProviderCryptoCoinList>(context, listen: false).setListOfAllCoins(coinList!);   // Set provider crypto coin list with updated values
     });
 
-
     return coinList;
   }
 
   @override
   void initState() {
     super.initState();
-    showAllCoins();
     transportValuesFromSharedPreferencesToProviderForFavoriteCoins();
   }
 
@@ -69,10 +67,9 @@ class _MainPageState extends State<MainPage> {
       body: FutureBuilder<List<CryptoCoins>>(
         future: showAllCoins(),
         builder: (context, snapshot){
-          if(snapshot.hasData){                                           // provider sorunu
+          if(snapshot.hasData){
             var coinList = snapshot.data;
-            var favoriteCoinList = Provider.of<ProviderForFavoriteCoins>(context);
-            //Provider.of<ProviderCryptoCoinList>(context, listen: false).setListOfAllCoins(coinList!);   // Set provider crypto coin list with updated values
+            var favoriteCoinListProvider = Provider.of<ProviderForFavoriteCoins>(context);
             return ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
@@ -107,17 +104,25 @@ class _MainPageState extends State<MainPage> {
                                   Text(" (${coin.symbol})", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
                                 ],
                               ),
-                              favoriteCoinList.isContain(coin.id) ?
-                              IconButton(
-                                icon: Icon(Icons.favorite, color: Colors.white,),
-                                onPressed: (){
-                                  favoriteCoinList.remove(coin.id);
+                              favoriteCoinListProvider.isContain(coin.id) ?
+                              Consumer<ProviderForFavoriteCoins>(
+                                builder: (context, ProviderObject, child){
+                                  return IconButton(
+                                    icon: Icon(Icons.favorite, color: Colors.white,),
+                                    onPressed: (){
+                                      ProviderObject.remove(coin.id);
+                                    },
+                                  );
                                 },
                               ):
-                              IconButton(
-                                icon: Icon(Icons.favorite_border, color: Colors.white,),
-                                onPressed: (){
-                                  favoriteCoinList.add(coin.id);
+                              Consumer<ProviderForFavoriteCoins>(
+                                builder: (context, ProviderObject, child){
+                                  return IconButton(
+                                    icon: Icon(Icons.favorite_border, color: Colors.white,),
+                                    onPressed: (){
+                                      ProviderObject.add(coin.id);
+                                    },
+                                  );
                                 },
                               )
                             ],
@@ -144,7 +149,6 @@ class _MainPageState extends State<MainPage> {
                               ),
                             ],
                           ),
-
                         ],
                       ),
                     ),
