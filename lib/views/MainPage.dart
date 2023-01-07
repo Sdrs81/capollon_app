@@ -44,6 +44,11 @@ class _MainPageState extends State<MainPage> {
     coinList.add(c5);
     coinList.add(c6);
 
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      Provider.of<ProviderCryptoCoinList>(context, listen: false).setListOfAllCoins(coinList!);   // Set provider crypto coin list with updated values
+    });
+
+
     return coinList;
   }
 
@@ -96,7 +101,6 @@ class _MainPageState extends State<MainPage> {
                                   Text(coin.rank, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),),
                                 ],
                               ),
-                              //Text(coin.name, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),),
                               Row(
                                 children: [
                                   readyText(coin.name,Colors.white, FontWeight.bold, 22),
