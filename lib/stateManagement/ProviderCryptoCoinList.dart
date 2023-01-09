@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import '../model/CryptoCoins.dart';
@@ -13,6 +14,10 @@ class ProviderCryptoCoinList extends ChangeNotifier{
   Future <void> setListOfAllCoins(List<CryptoCoins> list) async{
     cryptoCoinList = list;
     notifyListeners();
+  }
+
+  bool isEmpty(){
+    return cryptoCoinList.isEmpty;
   }
 
 }

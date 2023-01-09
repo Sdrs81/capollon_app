@@ -18,14 +18,30 @@ class ProviderForFavoriteCoins extends ChangeNotifier{
     var sharedPFavoriteCoinList = await SharedPreferences.getInstance();
     favoriteCoinList.add(coinId);
     notifyListeners();
-    sharedPFavoriteCoinList.setStringList("favoriteCoins", favoriteCoinList);
+
+    sharedPFavoriteCoinList.remove("favoriteCoins");
+    var sharedPList = <String>[];
+
+    for(var coinId in favoriteCoinList){
+      sharedPList.add(coinId);
+    }
+
+    sharedPFavoriteCoinList.setStringList("favoriteCoins", sharedPList);
   }
 
   Future<void> remove(String coinId) async{
     var sharedPFavoriteCoinList = await SharedPreferences.getInstance();
     favoriteCoinList.remove(coinId);
     notifyListeners();
-    sharedPFavoriteCoinList.setStringList("favoriteCoins", favoriteCoinList);
+
+    sharedPFavoriteCoinList.remove("favoriteCoins");
+    var sharedPList = <String>[];
+
+    for(var coinId in favoriteCoinList){
+      sharedPList.add(coinId);
+    }
+
+    sharedPFavoriteCoinList.setStringList("favoriteCoins", sharedPList);
   }
 
   bool isContain(String coinId){

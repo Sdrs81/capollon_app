@@ -28,27 +28,30 @@ class _MainPageState extends State<MainPage> {
 
   Future<List<CryptoCoins>> showAllCoins() async{
 
-    var coinList = <CryptoCoins>[];
+    if(Provider.of<ProviderCryptoCoinList>(context, listen: false).isEmpty()){
+      var coinList = <CryptoCoins>[];
 
-    var c1 = CryptoCoins("1", "1", "BTC", "Bitcoin", "100000","123456" , "20000", "5");
-    var c2 = CryptoCoins("2", "2", "ETH", "Etherium", "50055", "123456","1000", "4");
-    var c3 = CryptoCoins("3", "3", "XRP", "XRP coin", "15205", "123456","1500", "3");
-    var c4 = CryptoCoins("4", "4", "SOLO", "Solo Coin", "100000","123456" , "20000", "5");
-    var c5 = CryptoCoins("5", "5", "PEAK", "Peak Coin", "50055", "123456","1000", "4");
-    var c6 = CryptoCoins("6", "6", "SRP", "SRP Coin", "15205", "123456","1500", "3");
+      var c1 = CryptoCoins("1", "1", "BTC", "Bitcoin", "100000","123456" , "20000", "5");
+      var c2 = CryptoCoins("2", "2", "ETH", "Etherium", "50055", "123456","1000", "4");
+      var c3 = CryptoCoins("3", "3", "XRP", "XRP coin", "15205", "123456","1500", "3");
+      var c4 = CryptoCoins("4", "4", "SOLO", "Solo Coin", "100000","123456" , "20000", "5");
+      var c5 = CryptoCoins("5", "5", "PEAK", "Peak Coin", "50055", "123456","1000", "4");
+      var c6 = CryptoCoins("6", "6", "SRP", "SRP Coin", "15205", "123456","1500", "3");
 
-    coinList.add(c1);
-    coinList.add(c2);
-    coinList.add(c3);
-    coinList.add(c4);
-    coinList.add(c5);
-    coinList.add(c6);
+      coinList.add(c1);
+      coinList.add(c2);
+      coinList.add(c3);
+      coinList.add(c4);
+      coinList.add(c5);
+      coinList.add(c6);
 
-    WidgetsBinding.instance.addPostFrameCallback((_){
-      Provider.of<ProviderCryptoCoinList>(context, listen: false).setListOfAllCoins(coinList!);   // Set provider crypto coin list with updated values
-    });
-
-    return coinList;
+      WidgetsBinding.instance.addPostFrameCallback((_){
+        Provider.of<ProviderCryptoCoinList>(context, listen: false).setListOfAllCoins(coinList!);   // Set provider crypto coin list with updated values
+      });
+      return coinList;
+    }else{
+      return Future.value(Provider.of<ProviderCryptoCoinList>(context, listen: false).getListOfAllCoins());
+    }
   }
 
   @override
