@@ -107,7 +107,7 @@ class _MainPageState extends State<MainPage> {
                                   Text(" (${coin.symbol})", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
                                 ],
                               ),
-                              favoriteCoinListProvider.isContain(coin.id) ?
+                              favoriteCoinListProvider.containsCoin(coin.id) ?
                               Consumer<ProviderForFavoriteCoins>(
                                 builder: (context, ProviderObject, child){
                                   return IconButton(

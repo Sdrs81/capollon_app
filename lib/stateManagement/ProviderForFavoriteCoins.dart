@@ -44,7 +44,7 @@ class ProviderForFavoriteCoins extends ChangeNotifier{
     sharedPFavoriteCoinList.setStringList("favoriteCoins", sharedPList);
   }
 
-  bool isContain(String coinId){
+  bool containsCoin(String coinId){
     return favoriteCoinList.contains(coinId);
   }
 

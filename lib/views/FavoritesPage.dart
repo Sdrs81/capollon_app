@@ -37,7 +37,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
               itemCount: coinList!.length,
               itemBuilder: (context, indeks){
                 var coin = coinList[indeks];
-                if(favoriteCoinListProvider.isContain(coin.id)){
+                if(favoriteCoinListProvider.containsCoin(coin.id)){
                   return Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -66,7 +66,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                     Text(" (${coin.symbol})", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
                                   ],
                                 ),
-                                favoriteCoinListProvider.isContain(coin.id) ?
+                                favoriteCoinListProvider.containsCoin(coin.id) ?
                                 Consumer<ProviderForFavoriteCoins>(
                                   builder: (context, ProviderObject, child){
                                     return IconButton(
