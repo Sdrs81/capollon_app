@@ -14,6 +14,7 @@ class ProviderForFavoriteCoins extends ChangeNotifier{
     notifyListeners();
   }
 
+  // Adding new favorite coin to SharedPreferences and Provider
   Future <void> add(String coinId) async{
     var sharedPFavoriteCoinList = await SharedPreferences.getInstance();
     favoriteCoinList.add(coinId);
@@ -29,6 +30,7 @@ class ProviderForFavoriteCoins extends ChangeNotifier{
     sharedPFavoriteCoinList.setStringList("favoriteCoins", sharedPList);
   }
 
+  // Removing favorite coin from SharedPreferences and Provider
   Future<void> remove(String coinId) async{
     var sharedPFavoriteCoinList = await SharedPreferences.getInstance();
     favoriteCoinList.remove(coinId);
@@ -44,6 +46,7 @@ class ProviderForFavoriteCoins extends ChangeNotifier{
     sharedPFavoriteCoinList.setStringList("favoriteCoins", sharedPList);
   }
 
+  // Checking that coin whether it is in the favorite list or not
   bool containsCoin(String coinId){
     return favoriteCoinList.contains(coinId);
   }

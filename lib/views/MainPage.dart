@@ -2,8 +2,6 @@ import 'package:capollon_app/stateManagement/ProviderCryptoCoinList.dart';
 import 'package:capollon_app/stateManagement/ProviderForFavoriteCoins.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-
 import '../model/CryptoCoins.dart';
 
 class MainPage extends StatefulWidget {
@@ -15,6 +13,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
+  // Getting all coin datas from API
   Future<List<CryptoCoins>> showAllCoins() async{
 
     if(Provider.of<ProviderCryptoCoinList>(context, listen: false).isEmpty()){
@@ -35,7 +34,7 @@ class _MainPageState extends State<MainPage> {
       coinList.add(c6);
 
       WidgetsBinding.instance.addPostFrameCallback((_){
-        Provider.of<ProviderCryptoCoinList>(context, listen: false).setListOfAllCoins(coinList!);   // Set provider crypto coin list with updated values
+        Provider.of<ProviderCryptoCoinList>(context, listen: false).setListOfAllCoins(coinList!);
       });
       return coinList;
     }else{
@@ -54,6 +53,7 @@ class _MainPageState extends State<MainPage> {
         builder: (context, snapshot){
           if(snapshot.hasData){
             var coinList = snapshot.data;
+            // Initializing Provider class to check favorite attribute for coins
             var favoriteCoinListProvider = Provider.of<ProviderForFavoriteCoins>(context);
             return ListView.builder(
               scrollDirection: Axis.vertical,
@@ -152,6 +152,8 @@ class _MainPageState extends State<MainPage> {
 
 
 // Ready to go widgets for more clear code
+
+// Ready Text
 class readyText extends StatelessWidget{
 
   late final String text;

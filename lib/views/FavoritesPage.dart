@@ -14,6 +14,7 @@ class FavoritesPage extends StatefulWidget {
 
 class _FavoritesPageState extends State<FavoritesPage> {
 
+  // Getting coin list from provider
   Future<List<CryptoCoins>> getCurrentCryptoCoinListFromProvider() async{
     return Future.value(Provider.of<ProviderCryptoCoinList>(context, listen: false).getListOfAllCoins());
   }
@@ -29,6 +30,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
         builder: (context, snapshot){
           if(snapshot.hasData){
             var coinList = snapshot.data;
+            // Initializing Provider class to check favorite attribute for coins
             var favoriteCoinListProvider = Provider.of<ProviderForFavoriteCoins>(context);
             return ListView.builder(
               scrollDirection: Axis.vertical,
@@ -36,6 +38,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
               itemCount: coinList!.length,
               itemBuilder: (context, indeks){
                 var coin = coinList[indeks];
+                // Checking that coin is favorite or not to list
                 if(favoriteCoinListProvider.containsCoin(coin.id)){
                   return Card(
                     shape: RoundedRectangleBorder(
@@ -116,6 +119,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     ),
                   );
                 }else{
+                  // Adding invisible widget to list just favorite coins
                   return Container(
                     width: 0,
                     height: 0,
@@ -133,6 +137,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
 }
 
 // Ready to go widgets for more clear code
+
+// Ready Text
 class readyText extends StatelessWidget{
 
   late final String text;

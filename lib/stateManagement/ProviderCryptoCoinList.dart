@@ -16,6 +16,7 @@ class ProviderCryptoCoinList extends ChangeNotifier{
     notifyListeners();
   }
 
+  // Checking that coin list whether it is empty or not
   bool isEmpty(){
     return cryptoCoinList.isEmpty;
   }

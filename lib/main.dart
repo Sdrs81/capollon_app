@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ProviderCryptoCoinList()),
@@ -43,15 +42,16 @@ class mainDart extends StatefulWidget {
 
 class _mainDartState extends State<mainDart> {
 
+  // Variables for BottomNavigationBar
   int pageIndex = 0;
   var pageList = [MainPage(), FavoritesPage(), AboutPage()];
 
+  // Transporting values from sharedPreferences to Provider to get favorites
   Future<void> transportValuesFromSharedPreferencesToProviderForFavoriteCoins() async {
     var sharedP = await SharedPreferences.getInstance();
     var coinFavoriteCoinListFromSharedPReferences = sharedP.getStringList(
         "favoriteCoins") ?? <String>[];
-    var favoriteCoinList = Provider.of<ProviderForFavoriteCoins>(
-        context, listen: false);
+    var favoriteCoinList = Provider.of<ProviderForFavoriteCoins>(context, listen: false);
 
     for (var coinId in coinFavoriteCoinListFromSharedPReferences) {
       favoriteCoinList.add(coinId);
