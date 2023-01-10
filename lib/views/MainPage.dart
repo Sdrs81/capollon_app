@@ -1,9 +1,7 @@
-import 'package:capollon_app/database/DatabaseProcesses.dart';
 import 'package:capollon_app/stateManagement/ProviderCryptoCoinList.dart';
 import 'package:capollon_app/stateManagement/ProviderForFavoriteCoins.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../model/CryptoCoins.dart';
@@ -16,19 +14,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
-  /*
-  Future<void> transportValuesFromSharedPreferencesToProviderForFavoriteCoins() async{
-    var sharedP = await SharedPreferences.getInstance();
-    var coinFavoriteCoinListFromSharedPReferences = sharedP.getStringList("favoriteCoins") ?? <String>[];
-    var favoriteCoinList = Provider.of<ProviderForFavoriteCoins>(context, listen: false);
-
-    for(var coinId in coinFavoriteCoinListFromSharedPReferences){
-      favoriteCoinList.add(coinId);
-    }
-  }
-  
-   */
 
   Future<List<CryptoCoins>> showAllCoins() async{
 
@@ -57,14 +42,6 @@ class _MainPageState extends State<MainPage> {
       return Future.value(Provider.of<ProviderCryptoCoinList>(context, listen: false).getListOfAllCoins());
     }
   }
-
-  /*
-  @override
-  void initState() {
-    super.initState();
-    transportValuesFromSharedPreferencesToProviderForFavoriteCoins();
-  }
-  */
 
   @override
   Widget build(BuildContext context) {

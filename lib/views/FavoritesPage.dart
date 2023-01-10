@@ -18,7 +18,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
     return Future.value(Provider.of<ProviderCryptoCoinList>(context, listen: false).getListOfAllCoins());
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
