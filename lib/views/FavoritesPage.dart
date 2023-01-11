@@ -1,4 +1,5 @@
 import 'package:capollon_app/model/CryptoCoins.dart';
+import 'package:capollon_app/views/MainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,21 @@ class _FavoritesPageState extends State<FavoritesPage> {
       appBar: AppBar(
         title: const Text("Favorites"),
       ),
-      body: FutureBuilder<List<CryptoCoins>>(
+      body: context.read<ProviderForFavoriteCoins>().isFavoriteListEmpty() ?
+      Center(
+       child: Column(
+         mainAxisAlignment: MainAxisAlignment.center,
+         children: [
+           Icon(Icons.favorite_border,size: 75,),
+           Container(height: 25,width: 0,),
+           Padding(
+             padding: const EdgeInsets.all(10.0),
+             child: Text("Your favorite coins will be listed here when you add them to favorite.",textAlign: TextAlign.center,style: TextStyle(fontSize: 18),),
+           ),
+         ],
+       ),
+      )
+      : FutureBuilder<List<CryptoCoins>>(
         future: getCurrentCryptoCoinListFromProvider(),
         builder: (context, snapshot){
           if(snapshot.hasData){

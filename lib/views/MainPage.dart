@@ -16,7 +16,7 @@ class _MainPageState extends State<MainPage> {
   // Getting all coin datas from API
   Future<List<CryptoCoins>> showAllCoins() async{
 
-    if(Provider.of<ProviderCryptoCoinList>(context, listen: false).isEmpty()){
+    if(Provider.of<ProviderCryptoCoinList>(context, listen: false).isCoinListEmpty()){
       var coinList = <CryptoCoins>[];
 
       var c1 = CryptoCoins("1", "1", "BTC", "Bitcoin", "100000","123456" , "20000", "5");

@@ -51,5 +51,10 @@ class ProviderForFavoriteCoins extends ChangeNotifier{
     return favoriteCoinList.contains(coinId);
   }
 
+  // Checking that favorite list whether it is empty or not
+  bool isFavoriteListEmpty(){
+    return favoriteCoinList.isEmpty;
+  }
+
 
 }
