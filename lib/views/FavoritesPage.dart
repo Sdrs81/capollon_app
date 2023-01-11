@@ -52,19 +52,19 @@ class _FavoritesPageState extends State<FavoritesPage> {
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: coinList!.length,
-              itemBuilder: (context, indeks){
-                var coin = coinList[indeks];
+              itemBuilder: (context, index){
+                var coin = coinList[index];
                 // Checking that coin is favorite or not to list
                 if(favoriteCoinListProvider.containsCoin(coin.id)){
                   return GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CoinDetailsPage(coin: coin)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CoinDetailsPage(coin: coin, index: index,)));
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
-                      color: Colors.primaries[indeks % Colors.primaries.length],
+                      color: Colors.primaries[index % Colors.primaries.length],
                       child: SizedBox(
                         height: 130,
                         child: Padding(

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 class CoinDetailsPage extends StatefulWidget {
 
   CryptoCoins coin;
-  CoinDetailsPage({required this.coin});
+  int index;
+
+  CoinDetailsPage({required this.coin,required this.index});
 
   @override
   State<CoinDetailsPage> createState() => _CoinDetailsPageState();
@@ -15,13 +17,15 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Coin Details: ${widget.coin.name}"),
+        title: Text("Coin Details: ${widget.coin.name}", style: TextStyle(color: Colors.primaries[widget.index % Colors.primaries.length]),),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("You are in details page")
+            Card(
+
+            ),
           ],
         ),
       ),
