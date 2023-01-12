@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.indigo,
         ),
         home: mainDart(),
       ),
@@ -86,7 +86,7 @@ class _mainDartState extends State<mainDart> {
         currentIndex: pageIndex,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white54,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.indigo,
         onTap: (index){
           setState(() {
             pageIndex = index;
