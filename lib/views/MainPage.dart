@@ -4,6 +4,8 @@ import 'package:capollon_app/views/CoinDetailsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../model/CryptoCoins.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -14,30 +16,30 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
+  // Parsing API response
+  List<CryptoCoins> parseResponseOfAllCoins(String response){
+
+    var jsonData = json.decode(response);
+    var jsonArray = jsonData["data"] as List;
+
+    List<CryptoCoins> coinList = jsonArray.map((jsonArrayObject) => CryptoCoins.fromJson(jsonArrayObject)).toList();
+
+    return coinList;
+  }
+
   // Getting all coin datas from API
   Future<List<CryptoCoins>> showAllCoins() async{
 
     if(Provider.of<ProviderCryptoCoinList>(context, listen: false).isCoinListEmpty()){
-      var coinList = <CryptoCoins>[];
 
-      var c1 = CryptoCoins("1", "1", "BTC", "Bitcoin", "100000","123456" , "20000", "5");
-      var c2 = CryptoCoins("2", "2", "ETH", "Etherium", "50055", "123456","1000", "4");
-      var c3 = CryptoCoins("3", "3", "XRP", "XRP coin", "15205", "123456","1500", "3");
-      var c4 = CryptoCoins("4", "4", "SOLO", "Solo Coin", "100000","123456" , "20000", "5");
-      var c5 = CryptoCoins("5", "5", "PEAK", "Peak Coin", "50055", "123456","1000", "4");
-      var c6 = CryptoCoins("6", "6", "SRP", "SRP Coin", "15205", "123456","1500", "3");
-
-      coinList.add(c1);
-      coinList.add(c2);
-      coinList.add(c3);
-      coinList.add(c4);
-      coinList.add(c5);
-      coinList.add(c6);
+      var url = Uri.parse("https://api.coincap.io/v2/assets");
+      var response = await http.get(url);
 
       WidgetsBinding.instance.addPostFrameCallback((_){
-        Provider.of<ProviderCryptoCoinList>(context, listen: false).setListOfAllCoins(coinList!);
+        Provider.of<ProviderCryptoCoinList>(context, listen: false).setListOfAllCoins(parseResponseOfAllCoins(response.body));
       });
-      return coinList;
+      return parseResponseOfAllCoins(response.body);
+
     }else{
       return Future.value(Provider.of<ProviderCryptoCoinList>(context, listen: false).getListOfAllCoins());
     }
@@ -85,12 +87,13 @@ class _MainPageState extends State<MainPage> {
                                 Row(
                                   children: [
                                     const Text("Rank# ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
-                                    Text(coin.rank, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),),
+                                    Text(coin.rank, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),),
                                   ],
                                 ),
                                 Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    readyText(coin.name,Colors.white, FontWeight.bold, 22),
+                                    readyText(coin.name,Colors.white, FontWeight.bold, 20),
                                     Text(" (${coin.symbol})", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
                                   ],
                                 ),
@@ -128,13 +131,13 @@ class _MainPageState extends State<MainPage> {
                                 Column(
                                   children: [
                                     const Text("Current Price: ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 19),),
-                                    Text("${coin.priceUsd} \$", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 19),),
+                                    Text("${double.parse(coin.priceUsd).toStringAsFixed(5)} \$", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 19),),
                                   ],
                                 ),
                                 Column(
                                   children: [
                                     const Text("Change(24Hr): ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 19),),
-                                    Text("${coin.changePercent24Hr}%", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 19),),
+                                    Text("${double.parse(coin.changePercent24Hr).toStringAsFixed(2)}%", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 19),),
                                   ],
                                 ),
                               ],

@@ -1,5 +1,4 @@
 import 'package:capollon_app/model/CryptoCoins.dart';
-import 'package:capollon_app/views/MainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -79,12 +78,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                   Row(
                                     children: [
                                       const Text("Rank# ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
-                                      Text(coin.rank, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),),
+                                      Text(coin.rank, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),),
                                     ],
                                   ),
                                   Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      readyText(coin.name,Colors.white, FontWeight.bold, 22),
+                                      readyText(coin.name,Colors.white, FontWeight.bold, 20),
                                       Text(" (${coin.symbol})", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
                                     ],
                                   ),
@@ -122,13 +122,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                   Column(
                                     children: [
                                       const Text("Current Price: ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 19),),
-                                      Text("${coin.priceUsd} \$", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 19),),
+                                      Text("${double.parse(coin.priceUsd).toStringAsFixed(5)} \$", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 19),),
                                     ],
                                   ),
                                   Column(
                                     children: [
                                       const Text("Change(24Hr): ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 19),),
-                                      Text("${coin.changePercent24Hr}%", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 19),),
+                                      Text("${double.parse(coin.changePercent24Hr).toStringAsFixed(2)}%", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 19),),
                                     ],
                                   ),
                                 ],
