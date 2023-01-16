@@ -49,7 +49,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Capollon App"),
+        title: Text("Capollon"),
       ),
       body: FutureBuilder<List<CryptoCoins>>(
         future: showAllCoins(),
