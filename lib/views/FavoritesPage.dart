@@ -15,16 +15,74 @@ class FavoritesPage extends StatefulWidget {
 
 class _FavoritesPageState extends State<FavoritesPage> {
 
+  // Variables for search option
+  bool isSearchModeOn = false;
+  String searchedWord = "";
+
   // Getting coin list from provider
   Future<List<CryptoCoins>> getCurrentCryptoCoinListFromProvider() async{
     return Future.value(Provider.of<ProviderCryptoCoinList>(context, listen: false).getListOfAllCoins());
+  }
+
+  // Searching function
+  Future<List<CryptoCoins>> showSearchedCoins(String searchedWord) async{
+
+    Future <List<CryptoCoins>> coinList = Future.value(Provider.of<ProviderCryptoCoinList>(context, listen: false).getListOfAllCoins());
+
+    List<CryptoCoins> normalCoinList = await coinList;
+    List<CryptoCoins> searchedCoinList = <CryptoCoins>[];
+
+    for(var coin in normalCoinList){
+      if(coin.id.contains(searchedWord.toLowerCase())){
+        searchedCoinList.add(coin);
+      }
+    }
+
+    return searchedCoinList;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Favorites"),
+        title: isSearchModeOn ?
+        TextField(
+          style: TextStyle(color: Colors.white),
+          autofocus: true,
+          cursorColor: Colors.white,
+          decoration: InputDecoration(
+            hintText: "Search your favorite coin from here...",
+            hintStyle: new TextStyle(
+                color: Colors.white
+            ),
+            border: InputBorder.none,
+          ),
+          onChanged: (searchResult){
+            print("Search Result: $searchResult");
+            setState(() {
+              searchedWord = searchResult;
+            });
+          },
+        ) : Text("Favorites"),
+        actions: [
+          isSearchModeOn ?
+          IconButton(
+            icon: Icon(Icons.cancel),
+            onPressed: (){
+              setState(() {
+                isSearchModeOn = false;
+                searchedWord = "";
+              });
+            },
+          ) : IconButton(
+            icon: Icon(Icons.search),
+            onPressed: (){
+              setState(() {
+                isSearchModeOn = true;
+              });
+            },
+          ),
+        ],
       ),
       body: context.read<ProviderForFavoriteCoins>().isFavoriteListEmpty() ?
       Center(
@@ -41,7 +99,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
        ),
       )
       : FutureBuilder<List<CryptoCoins>>(
-        future: getCurrentCryptoCoinListFromProvider(),
+        future: isSearchModeOn ? showSearchedCoins(searchedWord) : getCurrentCryptoCoinListFromProvider(),
         builder: (context, snapshot){
           if(snapshot.hasData){
             var coinList = snapshot.data;

@@ -74,11 +74,15 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         title: isSearchModeOn ?
         TextField(
+          style: TextStyle(color: Colors.white),
+          autofocus: true,
+          cursorColor: Colors.white,
           decoration: InputDecoration(
-              hintText: "Search coin from here...",
-              hintStyle: new TextStyle(
+            hintText: "Search coin from here...",
+            hintStyle: new TextStyle(
                 color: Colors.white
-              ),
+            ),
+            border: InputBorder.none
           ),
           onChanged: (searchResult){
             print("Search Result: $searchResult");
