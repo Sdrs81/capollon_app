@@ -16,6 +16,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
+  // Variables for search option
+  bool isSearchModeOn = false;
+  String searchedWord = "";
+
   // Parsing API response
   List<CryptoCoins> parseResponseOfAllCoins(String response){
 
@@ -45,14 +49,66 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
+  // Searching function
+  Future<List<CryptoCoins>> showSearchedCoins(String searchedWord) async{
+
+    Future <List<CryptoCoins>> coinList = Future.value(Provider.of<ProviderCryptoCoinList>(context, listen: false).getListOfAllCoins());
+
+    List<CryptoCoins> normalCoinList = await coinList;
+    List<CryptoCoins> searchedCoinList = <CryptoCoins>[];
+
+    for(var coin in normalCoinList){
+      if(coin.id.contains(searchedWord.toLowerCase())){
+        searchedCoinList.add(coin);
+      }
+    }
+
+    return searchedCoinList;
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Capollon"),
+        title: isSearchModeOn ?
+        TextField(
+          decoration: InputDecoration(
+              hintText: "Search coin from here...",
+              hintStyle: new TextStyle(
+                color: Colors.white
+              ),
+          ),
+          onChanged: (searchResult){
+            print("Search Result: $searchResult");
+            setState(() {
+              searchedWord = searchResult;
+            });
+          },
+        ) : Text("Capollon"),
+        actions: [
+          isSearchModeOn ?
+          IconButton(
+            icon: Icon(Icons.cancel),
+            onPressed: (){
+              setState(() {
+                isSearchModeOn = false;
+                searchedWord = "";
+              });
+            },
+          ) : IconButton(
+            icon: Icon(Icons.search),
+            onPressed: (){
+              setState(() {
+                isSearchModeOn = true;
+              });
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<CryptoCoins>>(
-        future: showAllCoins(),
+        future: isSearchModeOn ? showSearchedCoins(searchedWord) : showAllCoins(),
         builder: (context, snapshot){
           if(snapshot.hasData){
             var coinList = snapshot.data;
