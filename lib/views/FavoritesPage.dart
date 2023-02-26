@@ -58,7 +58,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
             border: InputBorder.none,
           ),
           onChanged: (searchResult){
-            print("Search Result: $searchResult");
             setState(() {
               searchedWord = searchResult;
             });

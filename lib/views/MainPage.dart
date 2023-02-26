@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:capollon_app/stateManagement/ProviderCryptoCoinList.dart';
 import 'package:capollon_app/stateManagement/ProviderForFavoriteCoins.dart';
 import 'package:capollon_app/views/CoinDetailsPage.dart';
@@ -85,7 +87,6 @@ class _MainPageState extends State<MainPage> {
             border: InputBorder.none
           ),
           onChanged: (searchResult){
-            print("Search Result: $searchResult");
             setState(() {
               searchedWord = searchResult;
             });

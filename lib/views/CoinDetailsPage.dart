@@ -55,6 +55,7 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
 
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("Coin Details: ${widget.coin.name}",),
       ),
