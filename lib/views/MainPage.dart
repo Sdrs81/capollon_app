@@ -165,6 +165,12 @@ class _MainPageState extends State<MainPage> {
                                       icon: Icon(Icons.favorite, color: Colors.white,),
                                       onPressed: (){
                                         ProviderObject.remove(coin.id);
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text("\"${coin.name}\" has been removed from favorites list", style: TextStyle(fontSize: 15),),
+                                            duration: Duration(milliseconds: 1250),
+                                          ),
+                                        );
                                       },
                                     );
                                   },
@@ -175,6 +181,12 @@ class _MainPageState extends State<MainPage> {
                                       icon: Icon(Icons.favorite_border, color: Colors.white,),
                                       onPressed: (){
                                         ProviderObject.add(coin.id);
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text("\"${coin.name}\" has been added to favorites list", style: TextStyle(fontSize: 15),),
+                                            duration: Duration(milliseconds: 1250),
+                                          ),
+                                        );
                                       },
                                     );
                                   },

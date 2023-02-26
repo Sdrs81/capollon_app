@@ -152,6 +152,19 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                         icon: Icon(Icons.favorite, color: Colors.white,),
                                         onPressed: (){
                                           ProviderObject.remove(coin.id);
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              content: Text("\"${coin.name}\" has been removed from favorites list", style: TextStyle(fontSize: 15),),
+                                              duration: Duration(milliseconds: 2500),
+                                              action: SnackBarAction(
+                                                label: "Add again",
+                                                textColor: Colors.yellow,
+                                                onPressed: (){
+                                                  ProviderObject.add(coin.id);
+                                                },
+                                              ),
+                                            ),
+                                          );
                                         },
                                       );
                                     },

@@ -99,6 +99,12 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                                 icon: Icon(Icons.favorite, color: Colors.white,),
                                 onPressed: (){
                                   ProviderObject.remove(widget.coin.id);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("\"${widget.coin.name}\" has been removed from favorites list", style: TextStyle(fontSize: 15),),
+                                      duration: Duration(milliseconds: 1250),
+                                    ),
+                                  );
                                 },
                               );
                             },
@@ -109,6 +115,12 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                                 icon: Icon(Icons.favorite_border, color: Colors.white,),
                                 onPressed: (){
                                   ProviderObject.add(widget.coin.id);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("\"${widget.coin.name}\" has been added to favorites list", style: TextStyle(fontSize: 15),),
+                                      duration: Duration(milliseconds: 1250),
+                                    ),
+                                  );
                                 },
                               );
                             },
