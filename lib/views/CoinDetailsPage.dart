@@ -88,7 +88,7 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              readyText(widget.coin.name,Colors.white, FontWeight.bold, 20),
+                              Text(" (${widget.coin.name})", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
                               Text(" (${widget.coin.symbol})", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
                             ],
                           ),
@@ -292,22 +292,6 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
         ),
       ),
     );
-  }
-}
-
-// Ready Text
-class readyText extends StatelessWidget{
-
-  late final String text;
-  late final Color color;
-  late final FontWeight fontWeight;
-  late final double fontSize;
-
-  readyText(this.text, this.color, this.fontWeight, this.fontSize);
-
-  @override
-  Widget build(BuildContext context){
-    return Text(text, style: TextStyle(color: color, fontWeight: fontWeight, fontSize: fontSize));
   }
 }
 

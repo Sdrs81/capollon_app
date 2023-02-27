@@ -141,7 +141,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                   Row(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      readyText(coin.name,Colors.white, FontWeight.bold, 20),
+                                      Text(" (${coin.name})", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
                                       Text(" (${coin.symbol})", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
                                     ],
                                   ),
@@ -227,20 +227,3 @@ class _FavoritesPageState extends State<FavoritesPage> {
   }
 }
 
-// Ready to go widgets for more clear code
-
-// Ready Text
-class readyText extends StatelessWidget{
-
-  late final String text;
-  late final Color color;
-  late final FontWeight fontWeight;
-  late final double fontSize;
-
-  readyText(this.text, this.color, this.fontWeight, this.fontSize);
-
-  @override
-  Widget build(BuildContext context){
-    return Text(text, style: TextStyle(color: color, fontWeight: fontWeight, fontSize: fontSize));
-  }
-}
