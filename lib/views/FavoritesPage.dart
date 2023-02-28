@@ -120,7 +120,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
-                      color: Colors.primaries[index % Colors.primaries.length],
+                      color: Colors.primaries[(int.parse(coin.rank) - 1) % Colors.primaries.length],
                       child: SizedBox(
                         height: 130,
                         child: Padding(
