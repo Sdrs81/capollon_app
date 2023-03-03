@@ -127,7 +127,7 @@ class _MainPageState extends State<MainPage> {
                 var coin = coinList[index];
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CoinDetailsPage(coin: coin, index: index,)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CoinDetailsPage(coin: coin)));
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(

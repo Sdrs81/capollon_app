@@ -12,9 +12,8 @@ import 'package:http/http.dart' as http;
 class CoinDetailsPage extends StatefulWidget {
 
   CryptoCoins coin;
-  int index;
 
-  CoinDetailsPage({required this.coin,required this.index});
+  CoinDetailsPage({required this.coin});
 
   @override
   State<CoinDetailsPage> createState() => _CoinDetailsPageState();
@@ -158,7 +157,7 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
-              color: Colors.primaries[widget.index % Colors.primaries.length],
+              color: Colors.primaries[(int.parse(widget.coin.rank) - 1) % Colors.primaries.length],
               child: SizedBox(
                 height: 170,
                 child: Padding(
@@ -201,7 +200,7 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
-                    color: Colors.primaries[widget.index % Colors.primaries.length],
+                    color: Colors.primaries[(int.parse(widget.coin.rank) - 1) % Colors.primaries.length],
                     child: SizedBox(
                       height: 60,
                       child: Padding(
@@ -224,7 +223,7 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
-              color: Colors.primaries[widget.index % Colors.primaries.length],
+              color: Colors.primaries[(int.parse(widget.coin.rank) - 1) % Colors.primaries.length],
               child: SizedBox(
                 height: 75,
                 child: Padding(
@@ -258,7 +257,7 @@ class _CoinDetailsPageState extends State<CoinDetailsPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(Radius.circular(10)),
                             ),
-                            color: Colors.primaries[widget.index % Colors.primaries.length],
+                            color: Colors.primaries[(int.parse(widget.coin.rank) - 1) % Colors.primaries.length],
                             child: SizedBox(
                               height: 50,
                               child: Padding(
