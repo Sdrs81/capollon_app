@@ -114,7 +114,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 if(favoriteCoinListProvider.containsCoin(coin.id)){
                   return GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CoinDetailsPage(coin: coin, index: index,)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CoinDetailsPage(coin: coin)));
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(
