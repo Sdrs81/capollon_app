@@ -42,7 +42,7 @@ class mainDart extends StatefulWidget {
 
 class _mainDartState extends State<mainDart> {
 
-  // Variables for BottomNavigationBar  
+  // Variables for BottomNavigationBar     
   int pageIndex = 0;
   var pageList = [MainPage(), FavoritesPage(), AboutPage()];
 
